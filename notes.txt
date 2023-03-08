@@ -1,0 +1,9 @@
+start up a web server via 
+    bin/serve
+
+
+git status
+git add .             <--- . selects all the files that were changed.
+git status
+git commit -m 'W1D1'  <--- W1D1 should always change to the current day and week
+git push              <--- This will send your code to Github for safe keeping.

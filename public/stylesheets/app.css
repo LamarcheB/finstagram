@@ -1,0 +1,23 @@
+body{
+    font-family: 'Genos', sans-serif;
+    background-color: rgb(206, 204, 204);
+}
+
+.finstagram-post {
+    background-color: white;
+    padding: 16px;
+    margin-bottom: 48px;
+    border-radius: 2rem;
+  }
+
+  .user-info  { 
+  }
+
+.finstagram-post .user-info img {
+    border-radius: 50%;
+  }
+
+  a.photo:hover{
+    padding: 10px;
+    transition: padding 0.5s;
+  }
