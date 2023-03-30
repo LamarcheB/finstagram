@@ -1,9 +1,104 @@
 start up a web server via 
     bin/serve
 
+---TUX---
+OPEN A COMMAND-LINE TERMINAL THAT INTERACTS WITH ACTIVE RECORD
+    bundle exec tux 
+
+// Create a record
+    user = User.new({ username: "sharky_j", avatar_url: "https://live.staticflickr.com/65535/52358606250_01c667c5da_w.jpg" })
+    comment = Comment.new({ user_id: 1, finstagram_post_id: 1, text: "this is awesome!" })
+
+// calling methods/values from an object
+    user.username
+    user.valid? 
+    user.save
+
+// Connecting 2 tables.
+    user_peppa = User.new({ username: "marlin_peppa", avatar_url: "https://live.staticflickr.com/65535/52358415933_0a0e6bc35f_3k.jpg" })
+    user_peppa.save
+
+    finstagram_post_peppa = FinstagramPost.new({ photo_url: "https://live.staticflickr.com/65535/52358494794_f88b160d15_4k.jpg", user_id: user_peppa.id })
+    finstagram_post_peppa.save
+
+// Find a record 
+    FinstagramPost.find(1) // asking ActiveRecord to find a FinstagramPost with the an id of 1
+    FinstagramPost.all      // Find all records
+    comment.last    // finds last record entered in comment
+    FinstagramPost.order(created_at: :desc).limit(2) // Find 2 recrods in desc order based on ID
+
+// belongs_to
+     // use belongs_to to tell ActiveRecord that Comments and Likes each have their own user and finstagram_post. The user is the one that creates the like/comment, and the finstagram_post is the finstagram post the like/comment is on.
+     // this association will add a finstagram_post_id and user_id field to Like and Comment records in the database. When a new Like or Comment is created, those fields will tell ActiveRecord which User and FinstagramPost records should be associated with a specific Like or Comment.
+        class Like < ActiveRecord::Base
+            belongs_to :user
+            belongs_to :finstagram_post
+        end
+           
+// has_many
+    // use has_many :className in a specific class to tell ActiveRecord that the relationship is 1 to many.
+        class User < ActiveRecord::Base
+            has_many :finstagram_posts
+            has_many :comments
+            has_many :likes
+        end
+
+// pulling from ActiveRecord
+    user = User.first                                   // define the user you want to access
+    user.finstagram_posts                               // get the array of posts made by the user
+    finstagram_post = user.finstagram_posts.first       // get the fist finstagram_post of user
+    finstagram_post.comments                            // grab the comments of that first post based on the speciifc user.
+
+// Validation
+    validates_presence_of :user     //ensures that a FinstagramPost record cannot be created if it does not have a User record associated with it.
+
+
+HTTP methods/requests
+    GET - Retrieve database
+    POST - Create database
+    PUT - update data (Entire Record)
+    PATCH - update data (1+ fields)
+    DELETE = Delete data
+
+CRUD 
+    Create                  insert      put / post
+    READ (Retrieve          Select      get
+    Update (Modify)         Update      put / post / patch
+    delete (destory))       DELETE      Delete
+
+
+
+
+
+
+
 
 git status
 git add .             <--- . selects all the files that were changed.
 git status
 git commit -m 'W1D1'  <--- W1D1 should always change to the current day and week
 git push              <--- This will send your code to Github for safe keeping.
+
+
+---Ruby ERb
+index.erp has the head, body sections. :
+    <header>
+    </header>
+    <main>
+        <article>
+        </article>
+    </main>
+
+layout.erb has the styles and the ruby hooks:
+    <%= yield %>
+
+Actions.rb has the erb(:index) to connect the two.
+    erb(:index)
+
+
+
+@ infront of a variable allows that variable scope to accessed in the index.erb file - AKA  instance variables
+    So to reiterate, adding an @ to our variable names transformed them from regular variables into instance variables. Previously they could only be referenced inside actions.rb, but now they are available to be used in index.erb.
+
+<% Exectue %>  -- allows you to create ruby code
+<%= output %> -- (%=) Executes ruby code and outputs - WHEN YOU WANT TO OUTPUT something

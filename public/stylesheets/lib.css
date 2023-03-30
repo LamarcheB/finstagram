@@ -25,7 +25,10 @@ input[type=text], input[type=password], input[type=email] {
   font-size: 1em;
 }
 
-header {
+.header {
+  background-color: #244751;
+  color: #E8FDFF;
+  font-size: 1px;
   overflow: hidden;
   display: flex;
   align-items: baseline;
